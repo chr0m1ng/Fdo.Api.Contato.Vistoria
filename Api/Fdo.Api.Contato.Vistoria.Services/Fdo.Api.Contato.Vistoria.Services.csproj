@@ -1,0 +1,8 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard2.1</TargetFramework>
+    <ProjectGuid>203bece3-5297-4131-beef-8c856d70d6ef</ProjectGuid>
+  </PropertyGroup>
+
+</Project>

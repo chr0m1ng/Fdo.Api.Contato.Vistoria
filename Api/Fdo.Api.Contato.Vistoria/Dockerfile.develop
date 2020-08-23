@@ -1,0 +1,20 @@
+FROM mcr.microsoft.com/dotnet/core/sdk:3.0
+ARG BUILD_CONFIGURATION=Debug
+ENV ASPNETCORE_ENVIRONMENT=Development
+ENV DOTNET_USE_POLLING_FILE_WATCHER=true
+EXPOSE 80
+
+WORKDIR /src
+COPY ["Fdo.Api.Contato.Vistoria.Facades/Fdo.Api.Contato.Vistoria.Facades.csproj", "Fdo.Api.Contato.Vistoria.Facades/"]
+COPY ["Fdo.Api.Contato.Vistoria.Models/Fdo.Api.Contato.Vistoria.Models.csproj", "Fdo.Api.Contato.Vistoria.Models/"]
+COPY ["Fdo.Api.Contato.Vistoria.Services/Fdo.Api.Contato.Vistoria.Services.csproj", "Fdo.Api.Contato.Vistoria.Services/"]
+COPY ["Fdo.Api.Contato.Vistoria/Fdo.Api.Contato.Vistoria.csproj", "Fdo.Api.Contato.Vistoria/"]
+
+RUN dotnet restore "Fdo.Api.Contato.Vistoria/Fdo.Api.Contato.Vistoria.csproj"
+COPY . .
+WORKDIR "/src/Fdo.Api.Contato.Vistoria"
+RUN dotnet build --no-restore "Fdo.Api.Contato.Vistoria.csproj" -c $BUILD_CONFIGURATION
+
+RUN echo "exec dotnet run --no-build --no-launch-profile -c $BUILD_CONFIGURATION --" > /entrypoint.sh
+
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
