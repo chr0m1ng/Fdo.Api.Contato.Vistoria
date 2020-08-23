@@ -1,5 +1,6 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
 
 namespace Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategies

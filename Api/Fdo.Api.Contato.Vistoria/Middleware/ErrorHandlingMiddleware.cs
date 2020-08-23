@@ -2,10 +2,8 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Threading.Tasks;
-using Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategies;
-using Fdo.Api.Contato.Vistoria.Models;
 
-using Lime.Protocol;
+using Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategies;
 
 using Microsoft.AspNetCore.Http;
 
@@ -20,15 +18,17 @@ namespace Fdo.Api.Contato.Vistoria.Middleware
     /// </summary>
     public class ErrorHandlingMiddleware
     {
+        private const string APPLICATION_JSON = "application/json"; 
+
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;
         private readonly Dictionary<Type, ExceptionHandlingStrategy> _exceptionHandling;
 
-        #pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
-        public ErrorHandlingMiddleware(RequestDelegate next, 
+#pragma warning disable CS1591 // Missing XML comment for publicly visible type or member
+        public ErrorHandlingMiddleware(RequestDelegate next,
                                        ILogger logger,
                                        Dictionary<Type, ExceptionHandlingStrategy> exceptionHandling)
-        #pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
+#pragma warning restore CS1591 // Missing XML comment for publicly visible type or member
         {
             _next = next;
             _logger = logger;
@@ -68,15 +68,15 @@ namespace Fdo.Api.Contato.Vistoria.Middleware
             }
             else
             {
-                _logger.Error(exception, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], exception.Message);
+                _logger.Error(exception, "Error: {@exception}", exception.Message);
                 context.Response.StatusCode = StatusCodes.Status500InternalServerError;
             }
 
-            _logger.Error(exception, "[traceId:{@traceId}]{@user} Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@requestBody}",
-                          context.TraceIdentifier, context.Request.Headers[Constants.BLIP_USER_HEADER],
-                          context.Request.Headers, context.Request.Query, context.Request.Path, requestBody);
+            _logger.Error(exception, "[traceId:{@traceId}] Error. Headers: {@headers}. Query: {@query}. Path: {@path}. Body: {@requestBody}",
+                          context.TraceIdentifier, context.Request.Headers,
+                          context.Request.Query, context.Request.Path, requestBody);
 
-            context.Response.ContentType = MediaType.ApplicationJson;
+            context.Response.ContentType = APPLICATION_JSON;
             await context.Response.WriteAsync(JsonConvert.SerializeObject($"{exception.Message}| traceId: {context.TraceIdentifier}"));
         }
     }

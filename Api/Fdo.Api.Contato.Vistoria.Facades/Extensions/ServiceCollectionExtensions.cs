@@ -1,12 +1,15 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
+
 using Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategies;
 using Fdo.Api.Contato.Vistoria.Models;
 using Fdo.Api.Contato.Vistoria.Models.UI;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+
 using RestEase;
+
 using Serilog;
 using Serilog.Exceptions;
 
@@ -27,8 +30,7 @@ namespace Fdo.Api.Contato.Vistoria.Facades.Extensions
             var settings = configuration.GetSection(SETTINGS_SECTION).Get<ApiSettings>();
 
             // Dependency injection
-            services.AddSingleton(settings)
-                    .AddSingleton(settings.BlipBotSettings);
+            services.AddSingleton(settings);
 
             services.AddSingleton(provider =>
             {

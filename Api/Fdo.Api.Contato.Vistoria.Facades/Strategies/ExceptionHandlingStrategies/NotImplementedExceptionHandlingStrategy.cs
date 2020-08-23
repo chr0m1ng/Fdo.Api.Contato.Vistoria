@@ -1,9 +1,9 @@
-using System;
+﻿using System;
 using System.Threading.Tasks;
+
 using Microsoft.AspNetCore.Http;
+
 using Serilog;
-using RestEase;
-using Fdo.Api.Contato.Vistoria.Models;
 
 namespace Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategies
 {
@@ -19,7 +19,7 @@ namespace Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategie
         public override async Task<HttpContext> HandleAsync(HttpContext context, Exception exception)
         {
             var apiException = exception as NotImplementedException;
-            _logger.Error(apiException, "[{@user}] Error: {@exception}", context.Request.Headers[Constants.BLIP_USER_HEADER], apiException.Message);
+            _logger.Error(apiException, "Error: {@exception}", apiException.Message);
             context.Response.StatusCode = StatusCodes.Status501NotImplemented;
 
             return await Task.FromResult(context);

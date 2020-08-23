@@ -9,15 +9,5 @@
         /// Current API Version
         /// </summary>
         public string ApiVersion { get; set; }
-
-        /// <summary>
-        /// BLiP's Bots Authorization Keys
-        /// </summary>
-        public BlipBotSettings BlipBotSettings { get; set; }
-
-        /// <summary>
-        /// Sets wether or not the API should check for Bot's permission
-        /// </summary>
-        public bool CheckAuthorizationKey { get; set; }
     }
 }

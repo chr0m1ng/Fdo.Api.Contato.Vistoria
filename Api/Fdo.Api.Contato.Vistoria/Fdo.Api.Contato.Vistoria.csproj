@@ -29,9 +29,6 @@
     <PackageReference Include="AspNetCore.HealthChecks.Publisher.Seq" Version="3.0.0" />
     <PackageReference Include="AspNetCore.HealthChecks.UI" Version="3.0.9" />
     <PackageReference Include="AspNetCore.HealthChecks.UI.Client" Version="3.0.2" />
-    <PackageReference Include="Blip.HttpClient" Version="1.0.5" />
-    <PackageReference Include="Lime.Protocol" Version="0.8.111-beta" />
-    <PackageReference Include="Lime.Protocol.Serialization" Version="0.7.278" />
     <PackageReference Include="Microsoft.AspNetCore.Mvc.NewtonsoftJson" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="3.0.0" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.0.0">
@@ -53,9 +50,6 @@
     <PackageReference Include="SimpleInjector" Version="4.7.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="5.0.0-rc2" />
     <PackageReference Include="Swashbuckle.AspNetCore.Swagger" Version="5.0.0-rc2" />
-    <PackageReference Include="Take.Api.Health.Eir" Version="1.0.1" />
-    <PackageReference Include="Take.Api.Security.Heimdall" Version="1.0.0" />
-    <PackageReference Include="Take.Blip.Client" Version="0.5.186" />
   </ItemGroup>
 
   <ItemGroup>
