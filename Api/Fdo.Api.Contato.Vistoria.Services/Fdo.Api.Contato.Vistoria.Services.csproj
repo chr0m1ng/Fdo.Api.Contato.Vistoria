@@ -5,4 +5,12 @@
     <ProjectGuid>203bece3-5297-4131-beef-8c856d70d6ef</ProjectGuid>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http.Features" Version="3.1.7" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Fdo.Api.Contato.Vistoria.Models\Fdo.Api.Contato.Vistoria.Models.csproj" />
+  </ItemGroup>
+
 </Project>

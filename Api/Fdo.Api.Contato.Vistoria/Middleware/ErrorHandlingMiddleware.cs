@@ -18,7 +18,7 @@ namespace Fdo.Api.Contato.Vistoria.Middleware
     /// </summary>
     public class ErrorHandlingMiddleware
     {
-        private const string APPLICATION_JSON = "application/json"; 
+        private const string APPLICATION_JSON = "application/json";
 
         private readonly RequestDelegate _next;
         private readonly ILogger _logger;

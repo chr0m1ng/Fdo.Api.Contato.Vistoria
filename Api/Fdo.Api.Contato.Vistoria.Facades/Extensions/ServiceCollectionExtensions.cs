@@ -1,9 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
 
+using Fdo.Api.Contato.Vistoria.Facades.Interfaces;
 using Fdo.Api.Contato.Vistoria.Facades.Strategies.ExceptionHandlingStrategies;
 using Fdo.Api.Contato.Vistoria.Models;
 using Fdo.Api.Contato.Vistoria.Models.UI;
+using Fdo.Api.Contato.Vistoria.Services;
+using Fdo.Api.Contato.Vistoria.Services.Interfaces;
 
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
@@ -30,7 +33,10 @@ namespace Fdo.Api.Contato.Vistoria.Facades.Extensions
             var settings = configuration.GetSection(SETTINGS_SECTION).Get<ApiSettings>();
 
             // Dependency injection
-            services.AddSingleton(settings);
+            services
+                .AddSingleton(settings)
+                .AddSingleton<IVehicleFacade, VehicleFacade>()
+                .AddSingleton<IStorageService, StorageService>();
 
             services.AddSingleton(provider =>
             {
