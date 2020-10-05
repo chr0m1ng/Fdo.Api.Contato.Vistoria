@@ -15,7 +15,6 @@ namespace Fdo.Api.Contato.Vistoria.Controllers
     /// </summary>
     [Route("api/[controller]")]
     [ApiController]
-    [AuthFilter]
     public class VehicleController : ControllerBase
     {
         private readonly IVehicleFacade _vehicleFacade;
@@ -34,13 +33,13 @@ namespace Fdo.Api.Contato.Vistoria.Controllers
         /// <param name="plate"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [AuthFilter]
         [HttpGet("{plate}")]
         public async Task<ActionResult<IEnumerable<string>>> ListVehicleImagesAsync(
             [FromHeader(Name = "x-api-key")] string apiKey,
             [FromRoute(Name = "plate")] string plate,
             CancellationToken cancellationToken)
         {
-            // Vão ser dois endpoints, o primeiro pra buscar a lista de imagens e o segundo para buscar UMA imagem
             var images = await _vehicleFacade.ListVehicleImagesAsync(plate, cancellationToken);
             if (images != null)
             {
@@ -80,11 +79,12 @@ namespace Fdo.Api.Contato.Vistoria.Controllers
         /// <param name="images"></param>
         /// <param name="cancellationToken"></param>
         /// <returns></returns>
+        [AuthFilter]
         [HttpPost("{plate}")]
         public async Task<IActionResult> UploadVehicleAsync(
             [FromHeader(Name = "x-api-key")] string apiKey,
             [FromRoute(Name = "plate")] string plate,
-            [FromForm(Name = "file")] IEnumerable<IFormFile> images,
+            [FromForm(Name = "files")] IEnumerable<IFormFile> images,
             CancellationToken cancellationToken)
         {
             await _vehicleFacade.SaveVehicleImagesAsync(plate, images, cancellationToken);

@@ -22,11 +22,6 @@ namespace Fdo.Api.Contato.Vistoria
     {
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
         private const string API_VERSION = "v1";
-        private const string SETTINGS_SECTION = "Settings";
-        private const string LOCALHOST = "http://localhost:80";
-        private const string HEALTH_CHECK_ENDPOINT = "/health";
-        private const string BLIP_CSS = "blip.css";
-        private const string API_CHECK_KEY = "API";
 
         public Startup(IConfiguration configuration)
         {

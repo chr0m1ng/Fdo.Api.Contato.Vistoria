@@ -8,7 +8,7 @@ using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace Fdo.Api.Contato.Vistoria.Facades.Filters
 {
-    [AttributeUsage(AttributeTargets.Class)]
+    [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthFilter : Attribute, IAuthorizationFilter
     {
         private ApiSettings _apiSettings { get; set; }
