@@ -4,6 +4,7 @@
     <TargetFramework>netcoreapp3.1</TargetFramework>
     <ProjectGuid>c4bf8a7a-5a04-4a21-9bd9-37782ef52b28</ProjectGuid>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+    <PackageIcon>app.png</PackageIcon>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
@@ -19,6 +20,10 @@
     <Content Remove="Models\**" />
     <EmbeddedResource Remove="Models\**" />
     <None Remove="Models\**" />
+    <None Include="Resources\Images\app.png">
+      <Pack>True</Pack>
+      <PackagePath></PackagePath>
+    </None>
   </ItemGroup>
 
   <ItemGroup>
