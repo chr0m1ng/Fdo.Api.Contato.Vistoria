@@ -16,4 +16,4 @@ jobs:
       with:
         dotnet-version: 3.1.301
     - name: Build
-      run: dotnet build --configuration Release -r "Api/Fdo.Api.Contato.Vistoria.Installer"
+      run: dotnet build --configuration Release -r "Api/Fdo.Api.Contato.Vistoria.Installer/Fdo.Api.Contato.Vistoria.Installer.csproj"
