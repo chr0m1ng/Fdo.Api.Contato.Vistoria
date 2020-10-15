@@ -99,7 +99,7 @@
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
 
-    <Exec Command="if not exist ..\Installs mkdir ..\Installs" />
-    <Exec Command="move bin\$(Configuration)\$(OutputName).msi ..\Installs\Contato-Vistoria-API-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi"/>
+    <Exec Command="if not exist ..\..\Installs mkdir ..\..\Installs" />
+    <Exec Command="move bin\$(Configuration)\$(OutputName).msi ..\..\Installs\Contato-Vistoria-API-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi"/>
   </Target>
 </Project>
