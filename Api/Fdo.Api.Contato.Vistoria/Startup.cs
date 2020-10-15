@@ -1,6 +1,8 @@
 ﻿using System;
+using System.Diagnostics;
 using System.IO;
 using System.Reflection;
+using System.Runtime.InteropServices;
 
 using Fdo.Api.Contato.Vistoria.Facades.Extensions;
 using Fdo.Api.Contato.Vistoria.Middleware;
@@ -22,6 +24,8 @@ namespace Fdo.Api.Contato.Vistoria
     {
         private const string SWAGGERFILE_PATH = "./swagger/v1/swagger.json";
         private const string API_VERSION = "v1";
+        private const string LOCALHOST = "http://localhost:5000";
+        private const string HOME_PAGE_ENDPOINT = "api/config";
 
         public Startup(IConfiguration configuration)
         {
@@ -39,6 +43,8 @@ namespace Fdo.Api.Contato.Vistoria
 
             services.AddControllers();
             services.AddMvc().AddNewtonsoftJson();
+
+            OpenUrl($"{LOCALHOST}/{HOME_PAGE_ENDPOINT}");
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
@@ -78,6 +84,34 @@ namespace Fdo.Api.Contato.Vistoria
                 var xmlPath = Path.Combine(AppContext.BaseDirectory, xmlFile);
                 c.IncludeXmlComments(xmlPath);
             });
+        }
+
+        private void OpenUrl(string url)
+        {
+            try
+            {
+                Process.Start(url);
+            }
+            catch
+            {
+                if (RuntimeInformation.IsOSPlatform(OSPlatform.Windows))
+                {
+                    url = url.Replace("&", "^&");
+                    Process.Start(new ProcessStartInfo("cmd", $"/c start {url}") { CreateNoWindow = true });
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.Linux))
+                {
+                    Process.Start("xdg-open", url);
+                }
+                else if (RuntimeInformation.IsOSPlatform(OSPlatform.OSX))
+                {
+                    Process.Start("open", url);
+                }
+                else
+                {
+                    throw;
+                }
+            }
         }
     }
 }
