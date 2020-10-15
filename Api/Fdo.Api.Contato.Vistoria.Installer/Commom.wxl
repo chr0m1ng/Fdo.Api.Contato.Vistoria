@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<WixLocalization Culture="en-us" xmlns="http://schemas.microsoft.com/wix/2006/localization">
+  <String Id="ProductName_x86">Contato Vistoria (32 bit)</String>
+  <String Id="ProductName_x64">Contato Vistoria (64 bit)</String>
+  <String Id="ProductName">Contato Vistoria Server - API</String>
+  <String Id="Language">1033</String>
+  <String Id="Company">Chr0m1ng</String>
+  <String Id="Description">Contato Vistoria Server API</String>
+  <String Id="DowngradeErrorMessage">A newer version of Contato Vistoria is already installed.</String>
+  <String Id="ProductNameFolder">ContatoServerApi</String>
+</WixLocalization>

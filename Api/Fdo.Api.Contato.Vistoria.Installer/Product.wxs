@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
+  
+  <?if $(var.Platform)=x64?>
+  <?define ProductCode = "{32D05B8F-FA6E-4DC5-99A2-4716252D0C42}"?>
+  <?else?>
+  <?define ProductCode = "{22DB506D-7CFA-4BC1-8A2B-06DF404BFD39}"?>
+  <?endif?>
+  
+  <?define UpgradeCode = "{83D1677D-17AF-4566-90D9-4CBA078A7C27}"?>
+
+	<Product Id="$(var.ProductCode)" 
+           Name="!(loc.ProductName_$(var.Platform))" 
+           Language="!(loc.Language)" 
+           Version="$(var.BuildVersion)" 
+           Manufacturer="!(loc.Company)" 
+           UpgradeCode="$(var.UpgradeCode)">
+		
+    <Package InstallerVersion="200"
+             Compressed="yes"
+             InstallScope="perMachine"
+             Platform="$(var.Platform)"
+             Manufacturer="!(loc.Company)"
+             Description="!(loc.Description)"
+             Languages="!(loc.Language)"
+             />
+
+    <Icon Id="icon.ico" SourceFile="$(var.Fdo.Api.Contato.Vistoria.ProjectDir)\Resources\Images\app.ico"/>
+    <Property Id="ARPPRODUCTICON">icon.ico</Property>
+
+    <Property Id="ARPURLINFOABOUT">https://github.com/chr0m1ng</Property>
+    <WixVariable Id="WixUIDialogBmp" Value="$(var.ProjectDir)\Assets\Background.bmp"/>
+    <WixVariable Id="WixUIBannerBmp" Value="$(var.ProjectDir)\Assets\Banner.bmp"/>
+    <WixVariable Id="WixUILicenseRtf" Value="$(var.ProjectDir)\Assets\License.rtf"/>
+
+    <UIRef Id="WixUI_Minimal"/>
+
+		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+		<MediaTemplate 
+      EmbedCab="yes"
+      />
+
+		<Feature Id="ProductFeature" Title="Fdo.Api.Contato.Vistoria" Level="1">
+			<ComponentGroupRef Id="ProductComponents" />
+      <ComponentGroupRef Id="PublishComponents" />
+		</Feature>
+	</Product>
+
+</Wix>

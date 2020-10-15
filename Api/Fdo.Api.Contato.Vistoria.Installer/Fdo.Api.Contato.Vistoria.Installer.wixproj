@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" InitialTargets="EnsureWixToolsetInstalled" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <ProductVersion>3.10</ProductVersion>
+    <ProjectGuid>a0c8b054-9969-4e5b-a339-c4e8ae87a911</ProjectGuid>
+    <SchemaVersion>2.0</SchemaVersion>
+    <OutputName>Contato-Vistoria-Server-API-$(Configuration)-$(Platform)</OutputName>
+    <OutputType>Package</OutputType>
+    <Cultures>;</Cultures>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x64' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+    <DefineConstants>Debug</DefineConstants>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x64' ">
+    <OutputPath>bin\$(Configuration)\</OutputPath>
+    <IntermediateOutputPath>obj\$(Configuration)\</IntermediateOutputPath>
+  </PropertyGroup>
+  <ItemGroup>
+    <Compile Include="Components.wxs" />
+    <Compile Include="ComponentsGenerated.wxs" />
+    <Compile Include="Directories.wxs" />
+    <Compile Include="Product.wxs" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Commom.wxl" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Fdo.Api.Contato.Vistoria\Fdo.Api.Contato.Vistoria.csproj">
+      <Name>Fdo.Api.Contato.Vistoria</Name>
+      <Project>{c4bf8a7a-5a04-4a21-9bd9-37782ef52b28}</Project>
+      <Private>True</Private>
+      <DoNotHarvest>True</DoNotHarvest>
+      <RefProjectOutputGroups>Binaries;Content;Satellites</RefProjectOutputGroups>
+      <RefTargetDir>INSTALLFOLDER</RefTargetDir>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WixExtension Include="WixUtilExtension">
+      <HintPath>$(WixExtDir)\WixUtilExtension.dll</HintPath>
+      <Name>WixUtilExtension</Name>
+    </WixExtension>
+    <WixExtension Include="WixUIExtension">
+      <HintPath>$(WixExtDir)\WixUIExtension.dll</HintPath>
+      <Name>WixUIExtension</Name>
+    </WixExtension>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Assets" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Assets\License.rtf" />
+    <Content Include="Assets\Background.bmp" />
+    <Content Include="Assets\Banner.bmp" />
+  </ItemGroup>
+  <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
+  <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
+  <Target Name="EnsureWixToolsetInstalled" Condition=" '$(WixTargetsImported)' != 'true' ">
+    <Error Text="The WiX Toolset v3.11 (or newer) build tools must be installed to build this project. To download the WiX Toolset, see http://wixtoolset.org/releases/" />
+  </Target>
+  <Target Name="BeforeBuild">
+    <Exec Command="rd /s /q ..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)" />
+    <Exec Command="dotnet publish ..\Fdo.Api.Contato.Vistoria\Fdo.Api.Contato.Vistoria.csproj -c $(Configuration) -r win-$(Platform)" />
+    <GetAssemblyIdentity AssemblyFiles="..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\Fdo.Api.Contato.Vistoria.dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
+    </GetAssemblyIdentity>
+    <PropertyGroup>
+      <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish</DefineConstants>
+    </PropertyGroup>
+    <HeatDirectory 
+      OutputFile="ComponentsGenerated.wxs" 
+      DirectoryRefId="INSTALLFOLDER" 
+      ComponentGroupName="PublishComponents" 
+      SuppressCom="true" 
+      Directory="..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish" 
+      SuppressFragments="true" 
+      SuppressRegistry="true" 
+      SuppressRootDirectory="true" 
+      AutoGenerateGuids="false" 
+      GenerateGuidsNow="true" 
+      ToolPath="$(WixToolPath)" 
+      PreprocessorVariable="var.BasePath"
+      />
+  </Target>
+  <Target Name="AfterBuild">
+    <GetAssemblyIdentity AssemblyFiles="..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\Fdo.Api.Contato.Vistoria.dll">
+      <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
+    </GetAssemblyIdentity>
+
+    <Exec Command="if not exist ..\Installs mkdir ..\Installs" />
+    <Exec Command="move bin\$(Configuration)\$(OutputName).msi ..\Installs\Contato-Vistoria-API-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi"/>
+  </Target>
+</Project>
