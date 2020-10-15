@@ -82,5 +82,18 @@ namespace Fdo.Api.Contato.Vistoria.Services
         {
             return Path.Combine(_apiSettings.StoragePath, DateTime.Now.GetFullDateNameBr(), folder);
         }
+
+        public async Task<bool> TrySetStoragePathAsync(string path, CancellationToken cancellationToken)
+        {
+            return await Task.Run(() =>
+            {
+                if (Directory.Exists(path))
+                {
+                    _apiSettings.StoragePath = path;
+                    return true;
+                }
+                return false;
+            }, cancellationToken);
+        }
     }
 }
