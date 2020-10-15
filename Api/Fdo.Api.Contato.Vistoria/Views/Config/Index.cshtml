@@ -1,0 +1,69 @@
+﻿
+@model Fdo.Api.Contato.Vistoria.Models.UI.ApiSettings
+
+
+<body>
+    <h1>Local de armazenamento</h1>
+    <div aria-live="polite" aria-atomic="true" style="position: relative;">
+        <div class="form-group">
+            <label for="storage_input">Caminho da pasta</label>
+            <input class="form-control" id="storage_input" aria-describedby="storage_help" value="@Model.StoragePath" />
+            <small id="storage_help" class="form-text text-muted">Informe o caminho da pasta por completo.</small>
+        </div>
+        <button onclick="saveStoragePathAsync()" type="submit" class="btn btn-primary">Salvar</button>
+
+        <div class="toast" id="success_toast" style="position: absolute; top: 0; right: 0;" data-delay="3000">
+            <div class="toast-header">
+                <svg class=" rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                    <rect fill="#007aff" width="100%" height="100%" />
+                </svg>
+                <strong class="mr-auto">Salvo</strong>
+                <small>Agora</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Local de armazenamento salvo com sucesso
+            </div>
+        </div>
+        <div class="toast" id="error_toast" style="position: absolute; top: 0; right: 0;" data-delay="3000">
+            <div class="toast-header">
+                <svg class=" rounded mr-2" width="20" height="20" xmlns="http://www.w3.org/2000/svg"
+                     preserveAspectRatio="xMidYMid slice" focusable="false" role="img">
+                    <rect fill="#db3941" width="100%" height="100%" />
+                </svg>
+                <strong class="mr-auto">Erro</strong>
+                <small>Agora</small>
+                <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="toast-body">
+                Não foi possivel salvar local de armazenamento informado
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const saveStoragePathAsync = async () => {
+            const body = {
+                storage_path: $('#storage_input').val()
+            };
+
+            try {
+                const response = await axios.patch('/api/Config', body);
+                if (response.status == 200) {
+                    $("#success_toast").toast('show');
+                } else {
+                    throw new Error(response);
+                }
+
+            } catch (err) {
+                console.error(err);
+                $("#error_toast").toast('show');
+            }
+        };
+    </script>
+</body>
