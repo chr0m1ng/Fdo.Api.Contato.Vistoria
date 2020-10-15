@@ -17,6 +17,6 @@
       </Directory>
       <?endif?>
 
-    </Directory>
+    </Directory>    
   </Fragment>
 </Wix>
