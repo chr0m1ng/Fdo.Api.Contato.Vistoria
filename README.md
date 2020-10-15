@@ -24,3 +24,9 @@ When the API is down the status indicator will be red, otherwise it will remain 
 At the base URL you can find the **swagger** documentation of the API, you just need to go to the root url http://localhost:5000.
 
 ![SWAGGER PAGE IMAGE](Api/Fdo.Api.Contato.Vistoria/Resources/Images/swaggerPage.png)
+
+## Installation 
+
+The installation `.msi` files can be found at the [Installs](Installs) folder on the root of this repo or at the [releases page](https://github.com/chr0m1ng/Fdo.Api.Contato.Vistoria/releases).
+
+To create your own `.msi` file you just need to build the `Fdo.Api.Contato.Vistoria.Installer` project with the configuration and platform desired and the `.msi` files will appear on the [Installs](Installs) folder at the root of the repo.
