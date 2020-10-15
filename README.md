@@ -8,18 +8,19 @@ With this API you can **upload** and **download** the images.
 
 ## UI
 
-When started the app will open a new window on your default browser with the **config page** located at `http://localhost:5000/api/config`:
+When started the app will open a new window on your default browser with the **config page** located at http://localhost:5000/api/config:
 
-CONFIG_PAGE_IMAGE
+![CONFIG PAGE IMAGE](Api/Fdo.Api.Contato.Vistoria/Resources/Images/configPage.png)
 
 Here we can change the base **storage path** of the images.
 Also, the **API health** can be checked here, we have a status indicator at the navbar alongside the "Contato Vistoria" brand.
 
-CONFIG_PAGE_BLUE_STATUS_IMAGE
-CONFIG_PAGE_RED_STATUS_IMAGE
+![CONFIG PAGE GOOD STATUS IMAGE](Api/Fdo.Api.Contato.Vistoria/Resources/Images/configPageGoodHealthStatus.png)
+
+![CONFIG PAGE BAD STATUS IMAGE](Api/Fdo.Api.Contato.Vistoria/Resources/Images/configPageBadHealthStatus.png)
 
 When the API is down the status indicator will be red, otherwise it will remain blue for a healthy API.
 
-At the base URL you can find the **swagger** documentation of the API, you just need to go to the root url `http://localhost:5000`.
+At the base URL you can find the **swagger** documentation of the API, you just need to go to the root url http://localhost:5000.
 
-SWAGGER_PAGE_IMAGE
+![SWAGGER PAGE IMAGE](Api/Fdo.Api.Contato.Vistoria/Resources/Images/swaggerPage.png)
