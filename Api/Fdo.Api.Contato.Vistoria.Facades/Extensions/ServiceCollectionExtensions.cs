@@ -36,6 +36,7 @@ namespace Fdo.Api.Contato.Vistoria.Facades.Extensions
             services
                 .AddSingleton(settings)
                 .AddSingleton<IVehicleFacade, VehicleFacade>()
+                .AddSingleton<IConfigFacade, ConfigFacade>()
                 .AddSingleton<IStorageService, StorageService>();
 
             services.AddSingleton(provider =>
