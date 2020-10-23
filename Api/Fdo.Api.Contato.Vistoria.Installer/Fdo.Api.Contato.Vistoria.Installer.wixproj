@@ -64,6 +64,7 @@
     <Content Include="Assets\License.rtf" />
     <Content Include="Assets\Background.bmp" />
     <Content Include="Assets\Banner.bmp" />
+    <Content Include="HeatTransformer.xslt" />
   </ItemGroup>
   <Import Project="$(WixTargetsPath)" Condition=" '$(WixTargetsPath)' != '' " />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets" Condition=" '$(WixTargetsPath)' == '' AND Exists('$(MSBuildExtensionsPath32)\Microsoft\WiX\v3.x\Wix.targets') " />
@@ -79,27 +80,13 @@
     <PropertyGroup>
       <DefineConstants>BuildVersion=%(AssemblyVersion.Version);BasePath=..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish</DefineConstants>
     </PropertyGroup>
-    <HeatDirectory 
-      OutputFile="ComponentsGenerated.wxs" 
-      DirectoryRefId="INSTALLFOLDER" 
-      ComponentGroupName="PublishComponents" 
-      SuppressCom="true" 
-      Directory="..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish" 
-      SuppressFragments="true" 
-      SuppressRegistry="true" 
-      SuppressRootDirectory="true" 
-      AutoGenerateGuids="false" 
-      GenerateGuidsNow="true" 
-      ToolPath="$(WixToolPath)" 
-      PreprocessorVariable="var.BasePath"
-      />
+    <HeatDirectory Transforms="HeatTransformer.xslt" OutputFile="ComponentsGenerated.wxs" DirectoryRefId="INSTALLFOLDER" ComponentGroupName="PublishComponents" SuppressCom="true" Directory="..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\publish" SuppressFragments="true" SuppressRegistry="true" SuppressRootDirectory="true" AutoGenerateGuids="false" GenerateGuidsNow="true" ToolPath="$(WixToolPath)" PreprocessorVariable="var.BasePath" />
   </Target>
   <Target Name="AfterBuild">
     <GetAssemblyIdentity AssemblyFiles="..\Fdo.Api.Contato.Vistoria\bin\$(Configuration)\netcoreapp3.1\win-$(Platform)\Fdo.Api.Contato.Vistoria.dll">
       <Output TaskParameter="Assemblies" ItemName="AssemblyVersion" />
     </GetAssemblyIdentity>
-
     <Exec Command="if not exist ..\..\Installs mkdir ..\..\Installs" />
-    <Exec Command="move bin\$(Configuration)\$(OutputName).msi ..\..\Installs\Contato-Vistoria-API-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi"/>
+    <Exec Command="move bin\$(Configuration)\$(OutputName).msi ..\..\Installs\Contato-Vistoria-API-%(AssemblyVersion.Version)-$(Configuration)-$(Platform).msi" />
   </Target>
 </Project>

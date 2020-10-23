@@ -2,13 +2,14 @@
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
   <Fragment>
     <ComponentGroup Id="ProductComponents" Directory="INSTALLFOLDER">
-      <ComponentRef Id="MainAppShortcut"/>
+      <ComponentRef Id="MainAppShortcut" />
+      <ComponentRef Id="MainAppService" />
     </ComponentGroup>
 
     <DirectoryRef Id="INSTALLFOLDER" FileSource="..\Fdo.Api.Contato.Vistoria\bin\Debug\netcoreapp3.1\win-$(var.Platform)\publish\">
       <Component Id="MainAppShortcut" Guid="{9CF9FAF0-FC6D-4258-A350-2A5F6952B380}">
 
-        <Shortcut Id="MainAppShortcut" 
+        <Shortcut Id="MainAppShortcut"
                   Name="!(loc.ProductName)"
                   Target="[INSTALLFOLDER]Fdo.Api.Contato.Vistoria.exe"
                   Directory="InstallProgramMenuFolder"
@@ -16,16 +17,24 @@
                   Icon="icon.ico"
                   />
 
-        <RegistryValue Id="RegShortcutKey" 
-                       Root="HKCU" 
-                       Key="SOFTWARE\$(loc.ProductNameFolder)" 
-                       Name="Shortcut" 
-                       Value="1" 
-                       Type="integer" 
+        <RegistryValue Id="RegShortcutKey"
+                       Root="HKCU"
+                       Key="SOFTWARE\!(loc.ProductNameFolder)"
+                       Name="Shortcut"
+                       Value="1"
+                       Type="integer"
                        KeyPath="yes" />
-        
+
         <RemoveFolder Id="RemoveStartMenu" Directory="InstallProgramMenuFolder" On="uninstall"/>
       </Component>
+
+      <Component Id="MainAppService" Guid="{D9A0E554-C767-4FE0-AF48-A622AAB4B328}">
+        <File Id="SystemInformationService" KeyPath="yes" Source="..\Fdo.Api.Contato.Vistoria\bin\Debug\netcoreapp3.1\win-$(var.Platform)\publish\Fdo.Api.Contato.Vistoria.exe"/>
+        <!-- In case I try to use as service before just add this, app is failing on https certificate -->
+        <!--<ServiceInstall Id="ServiceInstaller" Name="!(loc.ProductNameFolder)" DisplayName="!(loc.ProductName)" Arguments="-start" Start="auto" Interactive="yes" Type="ownProcess" Vital="yes" ErrorControl="critical" />
+        <ServiceControl Id="ServiceInstaller" Name="!(loc.ProductNameFolder)" Stop="both" Start="install" Remove="uninstall" Wait="no" />-->
+      </Component>
     </DirectoryRef>
+
   </Fragment>
 </Wix>

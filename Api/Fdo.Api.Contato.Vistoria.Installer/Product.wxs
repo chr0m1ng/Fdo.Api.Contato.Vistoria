@@ -1,21 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Wix xmlns="http://schemas.microsoft.com/wix/2006/wi">
-  
+
   <?if $(var.Platform)=x64?>
   <?define ProductCode = "{32D05B8F-FA6E-4DC5-99A2-4716252D0C42}"?>
   <?else?>
   <?define ProductCode = "{22DB506D-7CFA-4BC1-8A2B-06DF404BFD39}"?>
   <?endif?>
-  
+
   <?define UpgradeCode = "{83D1677D-17AF-4566-90D9-4CBA078A7C27}"?>
 
-	<Product Id="$(var.ProductCode)" 
-           Name="!(loc.ProductName_$(var.Platform))" 
-           Language="!(loc.Language)" 
-           Version="$(var.BuildVersion)" 
-           Manufacturer="!(loc.Company)" 
+  <Product Id="$(var.ProductCode)"
+           Name="!(loc.ProductName_$(var.Platform))"
+           Language="!(loc.Language)"
+           Version="$(var.BuildVersion)"
+           Manufacturer="!(loc.Company)"
            UpgradeCode="$(var.UpgradeCode)">
-		
+
     <Package InstallerVersion="200"
              Compressed="yes"
              InstallScope="perMachine"
@@ -35,15 +35,15 @@
 
     <UIRef Id="WixUI_Minimal"/>
 
-		<MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
-		<MediaTemplate 
+    <MajorUpgrade DowngradeErrorMessage="!(loc.DowngradeErrorMessage)" />
+    <MediaTemplate
       EmbedCab="yes"
       />
 
-		<Feature Id="ProductFeature" Title="Fdo.Api.Contato.Vistoria" Level="1">
-			<ComponentGroupRef Id="ProductComponents" />
+    <Feature Id="ProductFeature" Title="Fdo.Api.Contato.Vistoria" Level="1">
+      <ComponentGroupRef Id="ProductComponents" />
       <ComponentGroupRef Id="PublishComponents" />
-		</Feature>
-	</Product>
+    </Feature>
+  </Product>
 
 </Wix>
